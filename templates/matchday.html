@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="main_div">
+        {% for match in matches %}
+            <p><img src="{{ match.team1.teamIconUrl }}" alt="" height="20" width="20">
+                {{ match.team1.teamName }} vs <img src="{{ match.team2.teamIconUrl }}" alt="" height="20" width="20">
+                {{ match.team2.teamName }}
+                {% if match.matchIsFinished %}
+                    Full Time: {{ match.result }}
+                {% else %}
+                    Start Time: {{ match.matchDateTime }}
+                {% endif %}
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

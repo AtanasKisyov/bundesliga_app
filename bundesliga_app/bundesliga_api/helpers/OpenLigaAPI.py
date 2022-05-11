@@ -16,6 +16,11 @@ class API:
         matches = requests.get(url)
         return json.loads(matches.content)
 
+    def get_matchday(self, matchday_key):
+        url = self.HOST + self.MATCH_DATA_SUFFIX + self.BUNDESLIGA_ID + self.SEASON + str(matchday_key)
+        matches = requests.get(url)
+        return json.loads(matches.content)
+
     def get_table(self):
         url = self.HOST + self.TABLE_SUFFIX + self.BUNDESLIGA_ID + self.SEASON
         table = requests.get(url)

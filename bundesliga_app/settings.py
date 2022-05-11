@@ -17,7 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bundesliga_app.bundesliga_api',
-    'bundesliga_app.main',
 ]
 
 MIDDLEWARE = [
