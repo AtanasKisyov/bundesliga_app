@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="main_div">
+        {% if error %}
+            <p>{{ error }}</p>
+        {% else %}
+            <h1>
+                {{ team.teamName }}
+            </h1>
+            <img src="{{ team.teamIconUrl }}" alt="" width="200" height="200">
+            <h2>Last Five Matches:</h2>
+                {% for match in last_five_matches %}
+                    <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
+                {% endfor %}
+                <h2>Next Match:</h2>
+                <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start Time: {{ next_match.matchDateTime }}</p>
+        {% endif %}
+
+    </div>
+{% endblock %}
