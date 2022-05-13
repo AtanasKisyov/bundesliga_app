@@ -4,8 +4,10 @@ from bundesliga_app.bundesliga_api.forms import SearchForm
 from bundesliga_app.bundesliga_api.helpers.OpenLigaAPI import API
 
 
+api = API()
+
+
 def home_view(request):
-    api = API()
 
     api_response = api.get_table()
 
@@ -20,16 +22,7 @@ def home_view(request):
     context = {
         'table': api_response,
         'form': search_form,
-    }
-
-    return render(request, template_name='home.html', context=context)
-
-
-def all_matchdays_view(request):
-    api = API()
-
-    context = {
-        'matchday_names': {},
+        'matchday_names': {}
     }
 
     api_response = api.get_all_matches()
@@ -39,11 +32,10 @@ def all_matchdays_view(request):
         matchday_number = matchday_name.split('.')[0]
         context['matchday_names'][matchday_name] = {'matchday_name': matchday_name, 'number': matchday_number}
 
-    return render(request, template_name='all_matches.html', context=context)
+    return render(request, template_name='home.html', context=context)
 
 
 def select_matchday_view(request, pk):
-    api = API()
 
     api_response = api.get_matchday(pk)
 
@@ -60,7 +52,6 @@ def select_matchday_view(request, pk):
 
 
 def last_matchday_view(request):
-    api = API()
 
     api_response = api.get_all_matches()
     last_matchday_number = 0
@@ -83,7 +74,6 @@ def last_matchday_view(request):
 
 
 def next_matchday_view(request):
-    api = API()
 
     api_response = api.get_all_matches()
     next_matchday_number = 0
@@ -103,11 +93,30 @@ def next_matchday_view(request):
         'matches': next_matchday,
     }
 
+    if not next_matchday:
+
+        table = api.get_table()
+        champion = table[0]
+        champions_league_participants = table[:4]
+        europa_league_participant = table[4]
+        europa_conference_participant = table[5]
+        relegation_play_off = table[15]
+        relegated_teams = table[16:]
+
+        context = {
+            'end_of_season': 'Season 2021/2022 has ended!',
+            'champion': champion,
+            'champions_league_participants': champions_league_participants,
+            'europa_league_participant': europa_league_participant,
+            'europa_conference_league': europa_conference_participant,
+            'relegation_play_off': relegation_play_off,
+            'relegated_teams': relegated_teams,
+        }
+
     return render(request, template_name='matchday.html', context=context)
 
 
 def search_by_team(request):
-    api = API()
 
     if request.method == 'POST':
         team_names = api.get_team_names()
@@ -133,12 +142,26 @@ def search_by_team(request):
                 clean_date = match['matchDateTime'].replace('T', ' ')
                 match['matchDateTime'] = clean_date
 
+        team_name = team_information['teamName']
         next_match = match_data.pop()
+        table = api.get_table()
+        team_position = {}
+
+        for position, team in enumerate(table, 1):
+
+            if team['teamName'] != team_name:
+                continue
+
+            ratio = team['won'] / team['matches'] * 100
+            team['ratio'] = f'{ratio:.2f}'
+            team['position'] = position
+            team_position = team
+
         context = {
             'team': team_information,
             'last_five_matches': match_data,
             'next_match': next_match,
+            'team_position': team_position,
         }
-        # Add current position in the table
-        return render(request, template_name='search_by_team.html', context=context)
 
+        return render(request, template_name='search_by_team.html', context=context)
