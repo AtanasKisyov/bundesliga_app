@@ -10,12 +10,43 @@
             </h1>
             <img src="{{ team.teamIconUrl }}" alt="" width="200" height="200">
             <h2>Last Five Matches:</h2>
-                {% for match in last_five_matches %}
-                    <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
-                {% endfor %}
-                <h2>Next Match:</h2>
-                <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start Time: {{ next_match.matchDateTime }}</p>
+            {% for match in last_five_matches %}
+                <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
+            {% endfor %}
+            <h2>Next Match:</h2>
+            <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start
+                Time: {{ next_match.matchDateTime }}</p>
+            <h2>Current Position</h2>
+            <table>
+                <tr>
+                    <th>Position</th>
+                    <th></th>
+                    <th>Team</th>
+                    <th>Matches</th>
+                    <th>Win</th>
+                    <th>Loss</th>
+                    <th>Win/Loss Ratio</th>
+                    <th>Draw</th>
+                    <th>Goals For</th>
+                    <th>Goals Against</th>
+                    <th>Goal Difference</th>
+                    <th>Points</th>
+                </tr>
+                <tr>
+                    <th>{{ team_position.position }}</th>
+                    <td><img src="{{ team_position.teamIconUrl }}" alt="" height="20" width="20"></td>
+                    <td>{{ team_position.teamName }}</td>
+                    <th>{{ team_position.matches }}</th>
+                    <th>{{ team_position.won }}</th>
+                    <th>{{ team_position.lost }}</th>
+                    <th>{{ team_position.ratio }}</th>
+                    <th>{{ team_position.draw }}</th>
+                    <th>{{ team_position.goals }}</th>
+                    <th>{{ team_position.opponentGoals }}</th>
+                    <th>{{ team_position.goalDiff }}</th>
+                    <th>{{ team_position.points }}</th>
+                </tr>
+            </table>
         {% endif %}
-
     </div>
 {% endblock %}

@@ -1,38 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="main_div">
-    <table>
-        <tr>
-            <th>Logo</th>
-            <th>Position</th>
-            <th>Team</th>
-            <th>Matches</th>
-            <th>Win</th>
-            <th>Loss</th>
-            <th>Win/Loss Ratio</th>
-            <th>Draw</th>
-            <th>Goals For</th>
-            <th>Goals Against</th>
-            <th>Goal Difference</th>
-            <th>Points</th>
-        </tr>
-        {% for team in table %}
-            <tr>
-                <th><img src="{{ team.teamIconUrl }}" alt="" height="20" width="20"></th>
-                <th>{{ team.position }}</th>
-                <th>{{ team.teamName }}</th>
-                <th>{{ team.matches }}</th>
-                <th>{{ team.won }}</th>
-                <th>{{ team.lost }}</th>
-                <th>{{ team.ratio }}</th>
-                <th>{{ team.draw }}</th>
-                <th>{{ team.goals }}</th>
-                <th>{{ team.opponentGoals }}</th>
-                <th>{{ team.goalDiff }}</th>
-                <th>{{ team.points }}</th>
-            </tr>
-        {% endfor %}
-    </table>
-</div>
+    <div class="parent">
+        <div class="child">
+        <h2>Spieltags:</h2>
+            {% for number, matchday in matchday_names.items %}
+                <a class="matchday" href="{% url 'select_matchday' matchday.number %}">{{ matchday.matchday_name }}</a>
+            {% endfor %}
+        </div>
+        <div class="child">
+            <h2>Table</h2>
+            <table>
+                <tr>
+                    <th>Position</th>
+                    <th></th>
+                    <th>Team</th>
+                    <th>Matches</th>
+                    <th>Win</th>
+                    <th>Loss</th>
+                    <th>Win/Loss Ratio</th>
+                    <th>Draw</th>
+                    <th>Goals For</th>
+                    <th>Goals Against</th>
+                    <th>Goal Difference</th>
+                    <th>Points</th>
+                </tr>
+                {% for team in table %}
+                    <tr>
+                        <th>{{ team.position }}</th>
+                        <td><img src="{{ team.teamIconUrl }}" alt="" height="20" width="20"></td>
+                        <td>{{ team.teamName }}</td>
+                        <th>{{ team.matches }}</th>
+                        <th>{{ team.won }}</th>
+                        <th>{{ team.lost }}</th>
+                        <th>{{ team.ratio }}</th>
+                        <th>{{ team.draw }}</th>
+                        <th>{{ team.goals }}</th>
+                        <th>{{ team.opponentGoals }}</th>
+                        <th>{{ team.goalDiff }}</th>
+                        <th>{{ team.points }}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
 {% endblock %}

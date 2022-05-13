@@ -2,16 +2,42 @@
 
 {% block content %}
     <div class="main_div">
-        {% for match in matches %}
-            <p><img src="{{ match.team1.teamIconUrl }}" alt="" height="20" width="20">
-                {{ match.team1.teamName }} vs <img src="{{ match.team2.teamIconUrl }}" alt="" height="20" width="20">
-                {{ match.team2.teamName }}
-                {% if match.matchIsFinished %}
-                    Full Time: {{ match.result }}
-                {% else %}
-                    Start Time: {{ match.matchDateTime }}
-                {% endif %}
-            </p>
-        {% endfor %}
+        {% if matches %}
+            {% for match in matches %}
+                <p><img src="{{ match.team1.teamIconUrl }}" alt="" height="20" width="20">
+                    {{ match.team1.teamName }} vs <img src="{{ match.team2.teamIconUrl }}" alt="" height="20"
+                                                       width="20">
+                    {{ match.team2.teamName }}
+                    {% if match.matchIsFinished %}
+                        Full Time: {{ match.result }}
+                    {% else %}
+                        Start Time: {{ match.matchDateTime }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        {% else %}
+            <h1>{{ end_of_season }}</h1>
+            <h2>The champion this year is {{ champion.teamName }} </h2>
+            <img src="{{ champion.teamIconUrl }}" alt="" width="200" height="200">
+
+            <h3>Champions league participants in the next season will be:</h3>
+            {% for team in champions_league_participants %}
+                <p><img src="{{ team.teamIconUrl }}" alt="" width="20" height="20"> {{ team.teamName }}</p>
+            {% endfor %}
+
+            <h3>Europa league participant in the next season will be:</h3>
+            <p><img src="{{ europa_league_participant.teamIconUrl }}" alt="" width="20" height="20"> {{ europa_league_participant.teamName }}</p>
+
+            <h3>Europa conference league participant in the next season will be:</h3>
+            <p><img src="{{ europa_conference_league.teamIconUrl }}" alt="" width="20" height="20"> {{ europa_conference_league.teamName }}</p>
+
+            <h3>Relegation play-off will play:</h3>
+            <p><img src="{{ relegation_play_off.teamIconUrl }}" alt="" width="20" height="20"> {{ relegation_play_off.teamName }}</p>
+
+            <h3>Relegated teams this season are:</h3>
+            {% for team in relegated_teams %}
+                <p><img src="{{ team.teamIconUrl }}" alt="" width="20" height="20"> {{ team.teamName }}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
