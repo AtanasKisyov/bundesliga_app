@@ -13,10 +13,12 @@
             {% for match in last_five_matches %}
                 <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
             {% endfor %}
-            <h2>Next Match:</h2>
-            <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start
-                Time: {{ next_match.matchDateTime }}</p>
-            <h2>Current Position</h2>
+            {% if not match.matchIsFinished %}
+                <h2>Next Match:</h2>
+                <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start
+                    Time: {{ next_match.matchDateTime }}</p>
+                <h2>Current Position</h2>
+            {% endif %}
             <table>
                 <tr>
                     <th>Position</th>
