@@ -165,3 +165,7 @@ def search_by_team(request):
         }
 
         return render(request, template_name='search_by_team.html', context=context)
+
+
+def handler404(request, *args, **kwargs):
+    pass
