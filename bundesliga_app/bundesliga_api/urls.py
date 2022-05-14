@@ -10,3 +10,5 @@ urlpatterns = [
     path('next-matchday/', next_matchday_view, name='next_matchday'),
     path('search-by-team/', search_by_team, name='search_by_team'),
 ]
+
+handler404 = 'bundesliga_app.bundesliga_api.views.handler404'

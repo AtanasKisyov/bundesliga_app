@@ -168,4 +168,6 @@ def search_by_team(request):
 
 
 def handler404(request, *args, **kwargs):
-    pass
+    response = render(request, context={}, template_name='404.html')
+    response.status_code = 404
+    return response
