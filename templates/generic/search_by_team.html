@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block content %}
     <div class="main_div">
@@ -42,7 +42,8 @@
             </table>
             <h2>Last Five Matches:</h2>
             {% for match in last_five_matches %}
-                <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
+                <p><img src="{{ match.team1.teamIconUrl }}" alt="" width="20" height="20"> {{ match.team1.teamName }} vs
+                    <img src="{{ match.team2.teamIconUrl }}" alt="" width="20" height="20"> {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
             {% endfor %}
             {% if next_match %}
                 <h2>Next Match:</h2>

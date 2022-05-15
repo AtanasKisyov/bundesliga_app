@@ -32,7 +32,7 @@ def home_view(request):
         matchday_number = matchday_name.split('.')[0]
         context['matchday_names'][matchday_name] = {'matchday_name': matchday_name, 'number': matchday_number}
 
-    return render(request, template_name='home.html', context=context)
+    return render(request, template_name='generic/home.html', context=context)
 
 
 def select_matchday_view(request, pk):
@@ -48,7 +48,7 @@ def select_matchday_view(request, pk):
         'matches': api_response,
     }
 
-    return render(request, template_name='matchday.html', context=context)
+    return render(request, template_name='generic/matchday.html', context=context)
 
 
 def last_matchday_view(request):
@@ -70,7 +70,7 @@ def last_matchday_view(request):
     context = {
         'matches': last_matchday,
     }
-    return render(request, template_name='matchday.html', context=context)
+    return render(request, template_name='generic/matchday.html', context=context)
 
 
 def next_matchday_view(request):
@@ -113,7 +113,7 @@ def next_matchday_view(request):
             'relegated_teams': relegated_teams,
         }
 
-    return render(request, template_name='matchday.html', context=context)
+    return render(request, template_name='generic/matchday.html', context=context)
 
 
 def search_by_team(request):
@@ -128,7 +128,7 @@ def search_by_team(request):
             context = {
                 'error': f'There are {len(result)} results! Please, try again!'
             }
-            return render(request, template_name='search_by_team.html', context=context)
+            return render(request, template_name='generic/search_by_team.html', context=context)
 
         team_information = result[0]
         team_id = team_information['teamId']
@@ -170,10 +170,10 @@ def search_by_team(request):
             'team_position': team_position,
         }
 
-        return render(request, template_name='search_by_team.html', context=context)
+        return render(request, template_name='generic/search_by_team.html', context=context)
 
 
 def handler404(request, *args, **kwargs):
-    response = render(request, context={}, template_name='404.html')
+    response = render(request, context={}, template_name='http_errors/404.html')
     response.status_code = 404
     return response
