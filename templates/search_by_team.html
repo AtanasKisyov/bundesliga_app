@@ -9,16 +9,7 @@
                 {{ team.teamName }}
             </h1>
             <img src="{{ team.teamIconUrl }}" alt="" width="200" height="200">
-            <h2>Last Five Matches:</h2>
-            {% for match in last_five_matches %}
-                <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
-            {% endfor %}
-            {% if not match.matchIsFinished %}
-                <h2>Next Match:</h2>
-                <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start
-                    Time: {{ next_match.matchDateTime }}</p>
-                <h2>Current Position</h2>
-            {% endif %}
+            <h2>Current Position</h2>
             <table>
                 <tr>
                     <th>Position</th>
@@ -49,6 +40,15 @@
                     <th>{{ team_position.points }}</th>
                 </tr>
             </table>
+            <h2>Last Five Matches:</h2>
+            {% for match in last_five_matches %}
+                <p>{{ match.team1.teamName }} vs {{ match.team2.teamName }} Full Time: {{ match.result }}</p>
+            {% endfor %}
+            {% if next_match %}
+                <h2>Next Match:</h2>
+                <p>{{ next_match.team1.teamName }} vs {{ next_match.team2.teamName }} Start
+                    Time: {{ next_match.matchDateTime }}</p>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}

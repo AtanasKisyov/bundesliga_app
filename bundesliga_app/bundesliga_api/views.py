@@ -133,6 +133,7 @@ def search_by_team(request):
         team_information = result[0]
         team_id = team_information['teamId']
         match_data = api.get_team_last_five_matches_and_next_match(team_id)
+        end_of_season = True
 
         for match in match_data:
             if match['matchIsFinished']:
@@ -141,9 +142,14 @@ def search_by_team(request):
             else:
                 clean_date = match['matchDateTime'].replace('T', ' ')
                 match['matchDateTime'] = clean_date
+                end_of_season = False
 
         team_name = team_information['teamName']
-        next_match = match_data.pop()
+
+        if not end_of_season:
+            next_match = match_data.pop()
+        else:
+            next_match = None
         table = api.get_table()
         team_position = {}
 
