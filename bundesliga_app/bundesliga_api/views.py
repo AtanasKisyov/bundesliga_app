@@ -15,7 +15,10 @@ def home_view(request):
         team['position'] = position
         played = team['matches']
         win = team['won']
-        ratio = win / played * 100
+        try:
+            ratio = win / played * 100
+        except ZeroDivisionError:
+            ratio = 0
         team['ratio'] = f'{ratio:.2f} %'
 
     search_form = SearchForm()
@@ -66,6 +69,9 @@ def last_matchday_view(request):
     for match in last_matchday:
         result = f"{match['matchResults'][0]['pointsTeam1']} : {match['matchResults'][0]['pointsTeam2']}"
         match['result'] = result
+
+    if not last_matchday:
+        return next_matchday_view(request)
 
     context = {
         'matches': last_matchday,

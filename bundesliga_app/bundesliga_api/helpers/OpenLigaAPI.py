@@ -10,7 +10,7 @@ class API:
     TEAMS_SUFFIX = 'getavailableteams/'
     MATCHES_BY_TEAM_SUFFIX = 'getmatchesbyteamid/'
     BUNDESLIGA_ID = 'bl1/'
-    SEASON = '2021/'
+    SEASON = '2022/'
     URL = HOST + BUNDESLIGA_ID + SEASON
 
     def get_all_matches(self, team=''):
