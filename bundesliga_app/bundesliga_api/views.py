@@ -163,8 +163,11 @@ def search_by_team(request):
 
             if team['teamName'] != team_name:
                 continue
-
-            ratio = team['won'] / team['matches'] * 100
+            
+            try:
+                ratio = team['won'] / team['matches'] * 100
+            except ZeroDivisionError:
+                ratio = 0
             team['ratio'] = f'{ratio:.2f}'
             team['position'] = position
             team_position = team
