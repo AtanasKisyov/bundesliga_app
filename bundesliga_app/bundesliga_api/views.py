@@ -43,6 +43,8 @@ def select_matchday_view(request, pk):
     api_response = api.get_matchday(pk)
 
     for match in api_response:
+        clean_date = match['matchDateTime'].replace('T', ' ')
+        match['matchDateTime'] = clean_date
         if match['matchIsFinished']:
             result = f"{match['matchResults'][0]['pointsTeam1']} : {match['matchResults'][0]['pointsTeam2']}"
             match['result'] = result
@@ -88,6 +90,7 @@ def next_matchday_view(request):
 
         if not match['matchIsFinished']:
             next_matchday_number = match['group']['groupOrderID']
+            break
 
     next_matchday = api.get_matchday(next_matchday_number)
 
